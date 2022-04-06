@@ -13,11 +13,14 @@ export class IncidentService {
         @InjectModel('Users') private readonly userModel: Model<User>
     ) {}
 
-    async insertIncident(type: string, detail: string, creator: string) {
+    async insertIncident(type: string, detail: string, creator: any) {
+        if (creator.role !== "admin") {
+            throw new NotFoundException('Only admin can raise an incident.'); 
+        }
         const newIncident = new this.incidentModel({
             type,
             detail,
-            created_by: creator,
+            created_by: creator.userId,
             assignee: null, 
             created_at: new Date().getTime(),
             updated_at: new Date().getTime(),
@@ -29,10 +32,10 @@ export class IncidentService {
         return result.id as string; 
     }
 
-    async assignIncident(incidentId: string, assignee: string, creator: string) {
+    async assignIncident(incidentId: string, assignee: string, creator: any) {
         const updatedIncident = await this.findIncident(incidentId); 
 
-        if (updatedIncident.created_by !== creator) {
+        if (updatedIncident.created_by !== creator || creator.role !== "admin") {
             throw new NotFoundException('Could not find incident.'); 
         }
 
@@ -42,19 +45,24 @@ export class IncidentService {
         updatedIncident.save();
     }
 
-    async acknowledgeIncident(incidentId: string, assignee: string) {
+    async acknowledgeIncident(incidentId: string, assignee: any) {
         const updatedIncident = await this.findIncident(incidentId); 
+        if (updatedIncident.assignee !== assignee.userId) {
+            throw new NotFoundException('Could not find incident.'); 
+        }
 
-        updatedIncident.assignee = assignee;
+        updatedIncident.assignee = assignee.userId;
         updatedIncident.acknowledged_at = new Date().getTime().toString();
 
         updatedIncident.save();
     }
 
-    async resolveIncident(incidentId: string, assignee: string) {
+    async resolveIncident(incidentId: string, assignee: any) {
         const updatedIncident = await this.findIncident(incidentId); 
-
-        updatedIncident.assignee = assignee;
+        if (updatedIncident.assignee !== assignee.userId) {
+            throw new NotFoundException('Could not find incident.'); 
+        }
+        updatedIncident.assignee = assignee.userId;
         updatedIncident.resolved_at = new Date().getTime().toString();
 
         updatedIncident.save();
