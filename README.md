@@ -6,7 +6,12 @@
 $ npm install
 ```
 
-## Running the app
+```bash 
+## Running the app as a docker
+
+docker-compose up
+
+## Running the app as cli
 
 ```bash
 # development
