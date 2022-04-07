@@ -47,7 +47,7 @@ localhost:8080/auth/register
     "email": "dntuanvu@gmail.com",
     "first_name": "Victor",
     "last_name": "Dinh",
-    "role": "admin"
+    "role": "admin" (or "user")
 }
 
 # login api
@@ -59,7 +59,7 @@ localhost:8080/auth/login
 
 # get all incidents
 localhost:8080/incident/all GET
-# get all incidents
+# get single incident by ID
 localhost:8080/incident/624dacdaa3d10fbd0889fcb0 GET
 
 # raise an incident as an admin
@@ -79,15 +79,13 @@ localhost:8080/incident/assign POST
 # acknowledge the incident as a user
 localhost:8080/incident/acknowledge POST
 {
-    "incident_id": "624dacdfa3d10fbd0889fcb2",
-    "assignee": "624da19892c639482454d7d1"
+    "incident_id": "624dacdfa3d10fbd0889fcb2"
 }
 
 # resolve the incident as a user
 localhost:8080/incident/resolve POST
 {
-    "incident_id": "624dacdfa3d10fbd0889fcb2",
-    "assignee": "624da19892c639482454d7d1"
+    "incident_id": "624dacdfa3d10fbd0889fcb2"
 }
 
 # read details about a certain incident
