@@ -1,5 +1,3 @@
-# enabled sonarcloud
-
 ## Installation
 
 ```bash
@@ -42,6 +40,26 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ````
+
+## Testing
+
+```bash
+To test we can run the auth/register api as the detail below to create either an admin or user then login as a newly created admin, we can create as many as incident we want using the button under /dashboard page
+
+After we created multiple incidents, we can start assigning the incident to user by click on the "Action" button on each row. In the modal, we can retrieve the user's id from token return by login api to put in the text field and start assigning .
+
+Then, we logout and login again with another user account which was recently assigned by admin . As a user, we can acknowledge or resolve whatever incident assigned by them. There will be an error if we acknowledge/resolve an incident which is not belong to user.
+
+I'm still revamping the page and to apply the IAM Provider (highly possible will be using Auth0 to maintain user pool) as well as to use FCM as a notification center to notify user when
+    - admin assign an incident to user > notification will be sent to user
+    - user start acknowledging or resolving the incident > notification will be sent to admin
+
+Technology stacks
+    - For Backend, I'm using NodeJS and with the framework NestJS to help me well structure the code
+    - For Frontend, I'm using ReactJS but I'm planning to apply NextJS since it will be a production ready framework for ReactJS to support SEO / SSR
+
+Thank you so much and since I'm in rush of getting interview so if we're ok, I'm able to enhance the UI by using ant design / tailwind css framework to make it nicer
+```
 
 ## API Endpoints
 
