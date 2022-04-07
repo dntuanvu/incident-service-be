@@ -6,8 +6,6 @@ import DataTable from 'react-data-table-component';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import { DropdownButton, Dropdown } from 'react-bootstrap'
-
 export default function Dashboard() {
   const [listIncident, setListIncident] = useState([]);
   const token = useToken();
@@ -29,93 +27,107 @@ export default function Dashboard() {
       });
   };
 
-  const [selectedRow, setSelectedRow] = useState('')
-  const [assignee, setAssignee] = useState('')
+  const [selectedRow, setSelectedRow] = useState('');
+  const [assignee, setAssignee] = useState('');
 
   const handleRowChange = (e) => {
     setSelectedRow(e.target.id);
-    console.log("selectedRow=" + selectedRow);
-  }
+    console.log('selectedRow=' + selectedRow);
+  };
 
   const selectAssigneeHandler = (e) => {
-    setAssignee(e.target.value)
-  }
+    setAssignee(e.target.value);
+  };
 
   const assignHandler = () => {
-    console.log("Assign To User assignee=" + assignee + "; incident=" +  selectedRow + "; accessToken=" + accessToken)
-    
-    const url = "http://localhost:8080/incident/assign"
-    const data = { 
-      incident_id: selectedRow, 
-      assignee: assignee
+    console.log(
+      'Assign To User assignee=' +
+        assignee +
+        '; incident=' +
+        selectedRow +
+        '; accessToken=' +
+        accessToken,
+    );
+
+    const url = 'http://localhost:8080/incident/assign';
+    const data = {
+      incident_id: selectedRow,
+      assignee: assignee,
     };
     axios
       .post(url, data, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-        }
+        },
       })
       .then((response) => {
         console.log('assignToUser, data=' + JSON.stringify(response));
         window.location.reload(true);
       });
-  }
-  
+  };
+
   const acknowledgeHandler = () => {
-    console.log("Acknowledge Incident")
-    const url = "http://localhost:8080/incident/acknowledge"
-    const data = { 
-      incident_id: selectedRow
+    console.log('Acknowledge Incident');
+    const url = 'http://localhost:8080/incident/acknowledge';
+    const data = {
+      incident_id: selectedRow,
     };
     axios
       .post(url, data, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-        }
+        },
       })
       .then((response) => {
         console.log('assignToUser, data=' + JSON.stringify(response));
         window.location.reload(true);
       });
-  }
+  };
 
   const resolveHandler = () => {
-    console.log("Resolve Incident")
-    const url = "http://localhost:8080/incident/resolve"
-    const data = { 
-      incident_id: selectedRow
+    console.log('Resolve Incident');
+    const url = 'http://localhost:8080/incident/resolve';
+    const data = {
+      incident_id: selectedRow,
     };
     axios
       .post(url, data, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-        }
+        },
       })
       .then((response) => {
         console.log('assignToUser, data=' + JSON.stringify(response));
         window.location.reload(true);
       });
-  }
+  };
 
   const deleteIncidentHandler = () => {
-    console.log("Assign To User assignee=" + assignee + "; incident=" +  selectedRow + "; accessToken=" + accessToken)
-    
-    const url = "http://localhost:8080/incident/" + selectedRow
+    console.log(
+      'Assign To User assignee=' +
+        assignee +
+        '; incident=' +
+        selectedRow +
+        '; accessToken=' +
+        accessToken,
+    );
+
+    const url = 'http://localhost:8080/incident/' + selectedRow;
     axios
       .delete(url, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-        }
+        },
       })
       .then((response) => {
         console.log('deleteIncident, data=' + JSON.stringify(response));
         window.location.reload(true);
       });
-  }
+  };
 
   useEffect(() => {
     getAllIncidents();
@@ -123,10 +135,10 @@ export default function Dashboard() {
 
   const columns = [
     {
-      name: "ID",
-      selector: (row) => row.id, 
+      name: 'ID',
+      selector: (row) => row.id,
       sortable: false,
-      hidden: true 
+      hidden: true,
     },
     {
       name: 'Type',
@@ -137,31 +149,36 @@ export default function Dashboard() {
       name: 'Detail',
       selector: (row) => row.detail,
       sortable: true,
-      grow: 4
+      grow: 4,
     },
     {
       name: 'Assignee',
       selector: (row) => row.assignee,
       sortable: true,
-      grow: 3
+      grow: 3,
     },
     {
       name: 'Status',
-      selector: (row) => (row.resolved_at !== undefined && row.resolved_at !== null) ? "Resolved" : (row.acknowledged_at !== null ? "Acknowledged" : "") ,
+      selector: (row) =>
+        row.resolved_at !== undefined && row.resolved_at !== null
+          ? 'Resolved'
+          : row.acknowledged_at !== null
+          ? 'Acknowledged'
+          : '',
       sortable: true,
-      grow: 2
+      grow: 2,
     },
     {
       name: 'Created By',
       selector: (row) => row.created_by,
       sortable: true,
-      grow: 3
+      grow: 3,
     },
     {
       name: 'Created At',
       selector: (row) => row.created_at,
       sortable: true,
-      grow: 2
+      grow: 2,
     },
     {
       button: true,
@@ -174,9 +191,12 @@ export default function Dashboard() {
               data-bs-toggle="modal"
               data-bs-target="#myModal"
               onClick={handleRowChange}
-              id={row.id}>Action</button>
-            
-            <div class="modal" tabindex="-1" id="myModal">
+              id={row.id}
+            >
+              Action
+            </button>
+
+            <div class="modal" id="myModal">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -190,24 +210,46 @@ export default function Dashboard() {
                   </div>
                   <div class="modal-body">
                     <p>
-                      <input type="text" name="assignee" class="btn btn-outline-secondary" onChange={selectAssigneeHandler}/>
-                      <button class="btn btn-secondary" onClick={assignHandler}>Assign</button>
+                      <input
+                        type="text"
+                        name="assignee"
+                        class="btn btn-outline-secondary"
+                        onChange={selectAssigneeHandler}
+                      />
+                      <button class="btn btn-secondary" onClick={assignHandler}>
+                        Assign
+                      </button>
                     </p>
                     <p>
-                      <button class="btn btn-secondary" onClick={acknowledgeHandler}>Acknowledge</button>
+                      <button
+                        class="btn btn-secondary"
+                        onClick={acknowledgeHandler}
+                      >
+                        Acknowledge
+                      </button>
                     </p>
                     <p>
-                      <button class="btn btn-secondary" onClick={resolveHandler}>Resolve</button>
+                      <button
+                        class="btn btn-secondary"
+                        onClick={resolveHandler}
+                      >
+                        Resolve
+                      </button>
                     </p>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" onClick={deleteIncidentHandler}>
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      onClick={deleteIncidentHandler}
+                    >
                       Delete
                     </button>
                     <button
                       type="button"
                       class="btn btn-secondary"
-                      data-bs-dismiss="modal">
+                      data-bs-dismiss="modal"
+                    >
                       Close
                     </button>
                     <button type="button" class="btn btn-primary">
@@ -223,34 +265,34 @@ export default function Dashboard() {
     },
   ];
 
-  const [newIncidentType, setNewIncidentType] = useState('')
-  const [newIncidentDetail, setNewIncidentDetail] = useState('')
+  const [newIncidentType, setNewIncidentType] = useState('');
+  const [newIncidentDetail, setNewIncidentDetail] = useState('');
   const newIncidentTypeHandler = (e) => {
-    setNewIncidentType(e.target.value)
-  }
+    setNewIncidentType(e.target.value);
+  };
 
   const newIncidentDetailHandler = (e) => {
-    setNewIncidentDetail(e.target.value)
-  }
+    setNewIncidentDetail(e.target.value);
+  };
 
   const createNewIncidentHandler = () => {
-    const url = "http://localhost:8080/incident/raise"
-    const data = { 
-      type: newIncidentType, 
-      detail: newIncidentDetail
+    const url = 'http://localhost:8080/incident/raise';
+    const data = {
+      type: newIncidentType,
+      detail: newIncidentDetail,
     };
     axios
       .post(url, data, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-        }
+        },
       })
       .then((response) => {
         console.log('assignToUser, data=' + JSON.stringify(response));
         window.location.reload(true);
       });
-  }
+  };
 
   return (
     <div className="App">
@@ -267,15 +309,18 @@ export default function Dashboard() {
           onRowSelected={handleRowChange}
         />
 
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#myModalNew"
-            onClick={handleRowChange}>Create New Incident</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#myModalNew"
+          onClick={handleRowChange}
+        >
+          Create New Incident
+        </button>
       </div>
 
-      <div class="modal" tabindex="-1" id="myModalNew">
+      <div class="modal" id="myModalNew">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -289,10 +334,22 @@ export default function Dashboard() {
             </div>
             <div class="modal-body">
               <p>
-                <input type="text" name="assignee" class="btn btn-outline-secondary" onChange={newIncidentTypeHandler} placeholder="Incident Type"/>
-                </p>
+                <input
+                  type="text"
+                  name="assignee"
+                  class="btn btn-outline-secondary"
+                  onChange={newIncidentTypeHandler}
+                  placeholder="Incident Type"
+                />
+              </p>
               <p>
-                <input type="text" name="assignee" class="btn btn-outline-secondary" onChange={newIncidentDetailHandler} placeholder="Detail"/>
+                <input
+                  type="text"
+                  name="assignee"
+                  class="btn btn-outline-secondary"
+                  onChange={newIncidentDetailHandler}
+                  placeholder="Detail"
+                />
               </p>
             </div>
             <div class="modal-footer">
@@ -303,14 +360,17 @@ export default function Dashboard() {
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary" onClick={createNewIncidentHandler}>
+              <button
+                type="button"
+                class="btn btn-primary"
+                onClick={createNewIncidentHandler}
+              >
                 Save changes
               </button>
             </div>
           </div>
         </div>
       </div>
-      
     </div>
   );
 }
