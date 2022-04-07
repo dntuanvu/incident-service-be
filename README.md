@@ -6,7 +6,7 @@
 $ npm install
 ```
 
-```bash 
+````bash
 ## Running the app as a docker
 
 docker-compose up
@@ -22,7 +22,13 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
-```
+````
+
+## Running the frontend app
+
+````bash
+$ cd frontend
+$ npm start
 
 ## Test
 
@@ -35,9 +41,10 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
-```
+````
 
 ## API Endpoints
+
 ```bash
 # register a user
 localhost:8080/auth/register
@@ -64,8 +71,8 @@ localhost:8080/incident/624dacdaa3d10fbd0889fcb0 GET
 
 # raise an incident as an admin
 localhost:8080/incident/raise POST
-{ 
-    "type": "bugs", 
+{
+    "type": "bugs",
     "detail": "This is the second bugs incident"
 }
 
@@ -92,3 +99,4 @@ localhost:8080/incident/resolve POST
 localhost:8080/incident/:incident_id GET
 # delete an incident
 localhost:8080/incident DELETE
+```
