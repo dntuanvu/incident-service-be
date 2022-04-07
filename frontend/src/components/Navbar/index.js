@@ -37,7 +37,7 @@ return (
 			Dashboard
 		</NavLink>
 		<NavLink to='/preferences' activeStyle>
-			Preferences
+			Logout
 		</NavLink>
 		
 		{/* Second Nav */}

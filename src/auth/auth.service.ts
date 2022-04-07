@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsersService } from '../users/users.service'
 import { JwtService } from '@nestjs/jwt';
 
@@ -41,6 +41,8 @@ export class AuthService {
                     expiresIn: '24h'
                 }),
             };
+        } else {
+            throw new NotFoundException('User not found.'); 
         }
     }
 

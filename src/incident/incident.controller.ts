@@ -69,8 +69,8 @@ export class IncidentController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Delete('') 
-    async delete(@Request() req, @Body('incident_id') incident_id: string) {
+    @Delete(':incident_id') 
+    async delete(@Request() req, @Param('incident_id') incident_id: string) {
         await this.incidentService.deleteIncident(incident_id);
         return null;
     }

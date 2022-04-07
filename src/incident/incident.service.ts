@@ -25,7 +25,7 @@ export class IncidentService {
             created_at: new Date().getTime(),
             updated_at: new Date().getTime(),
             acknowledged_at : null,
-            resoled_at : null
+            resolved_at : null
         });
 
         const result = await newIncident.save();
@@ -35,7 +35,10 @@ export class IncidentService {
     async assignIncident(incidentId: string, assignee: string, creator: any) {
         const updatedIncident = await this.findIncident(incidentId); 
 
-        if (updatedIncident.created_by !== creator || creator.role !== "admin") {
+        console.log("created_by=" + updatedIncident.created_by)
+        console.log("creator=" + JSON.stringify(creator))
+        console.log("role=" + creator.role)
+        if (updatedIncident.created_by !== creator.userId || creator.role !== "admin") {
             throw new NotFoundException('Could not find incident.'); 
         }
 
