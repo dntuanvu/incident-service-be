@@ -45,7 +45,10 @@ $ npm run test:cov
 ## Testing
 
 ````bash
-After we run ```docker-compose up``` to up the backend and db (mongodb) then we can run ./frontend/npm run dev to start frontend at localhost:3000
+After we run ```docker-compose up``` to up the frontend, backend and db (mongodb)
+    - Frontend is at localhost:3000
+    - Backend is at localhost:8080
+    - Database is at port 27017
 
 We have the following screens to test the features
     - Login screen (the main authentication screen when first opening the web)
