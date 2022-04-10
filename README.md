@@ -92,38 +92,38 @@ localhost:8080/auth/login
 }
 
 # get all incidents
-localhost:8080/incident/all GET
+localhost:8080/incidents GET
 # get single incident by ID
-localhost:8080/incident/624dacdaa3d10fbd0889fcb0 GET
+localhost:8080/incidents/624dacdaa3d10fbd0889fcb0 GET
 
 # raise an incident as an admin
-localhost:8080/incident/raise POST
+localhost:8080/incidents/raise POST
 {
     "type": "bugs",
     "detail": "This is the second bugs incident"
 }
 
 # assign the incident to a user
-localhost:8080/incident/assign POST
+localhost:8080/incidents/assign POST
 {
     "incident_id": "624dacdfa3d10fbd0889fcb2",
     "assignee": "624da19892c639482454d7d1"
 }
 
 # acknowledge the incident as a user
-localhost:8080/incident/acknowledge POST
+localhost:8080/incidents/acknowledge POST
 {
     "incident_id": "624dacdfa3d10fbd0889fcb2"
 }
 
 # resolve the incident as a user
-localhost:8080/incident/resolve POST
+localhost:8080/incidents/resolve POST
 {
     "incident_id": "624dacdfa3d10fbd0889fcb2"
 }
 
 # read details about a certain incident
-localhost:8080/incident/:incident_id GET
+localhost:8080/incidents/:incident_id GET
 # delete an incident
-localhost:8080/incident/:incident_id DELETE
+localhost:8080/incidents/:incident_id DELETE
 ```
