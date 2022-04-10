@@ -26,7 +26,8 @@ $ npm run start:prod
 
 ````bash
 $ cd frontend
-$ npm start
+$ npm install
+$ npm run dev
 
 ## Test
 
