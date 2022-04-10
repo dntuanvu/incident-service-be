@@ -1,3 +1,31 @@
+## Overview and Testing
+
+````bash
+After we run ```docker-compose up``` to up the frontend, backend and db (mongodb)
+    - Frontend is at localhost:3000
+    - Backend is at localhost:8080
+    - Database is at port 27017
+
+We have the following screens to test the features
+    - Login screen (the main authentication screen when first opening the web)
+    - Registration screen to register new admin or user account with email
+    - Home page as an admin
+        - admin can view all the incidents
+        - admin can raise new incident
+    - User page to manage the users in our db
+    - Incident page to manage the incidents raised by admin
+    - Create new incident
+    - Assign an incident to user (to select user from dropdown list)
+    - Home page as a normal user
+        - normal user can only view the incidents assigned to them
+        - they can acknowledge or resolve the incident
+
+Technology stacks
+    - For Backend, I'm using NodeJS with NestJS, a production ready framework for NodeJS
+    - For Frontend, I'm using ReactJS with NextJS, a production ready framework for ReactJS to support SEO / SSR
+    - For DB, I'm using mongodb due to the flexibilty of NoSQL
+````
+
 ## Installation
 
 ```bash
@@ -40,34 +68,6 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
-````
-
-## Testing
-
-````bash
-After we run ```docker-compose up``` to up the frontend, backend and db (mongodb)
-    - Frontend is at localhost:3000
-    - Backend is at localhost:8080
-    - Database is at port 27017
-
-We have the following screens to test the features
-    - Login screen (the main authentication screen when first opening the web)
-    - Registration screen to register new admin or user account with email
-    - Home page as an admin
-        - admin can view all the incidents
-        - admin can raise new incident
-    - User page to manage the users in our db
-    - Incident page to manage the incidents raised by admin
-    - Create new incident
-    - Assign an incident to user (to select user from dropdown list)
-    - Home page as a normal user
-        - normal user can only view the incidents assigned to them
-        - they can acknowledge or resolve the incident
-
-Technology stacks
-    - For Backend, I'm using NodeJS and with the framework NestJS to help me well structure the code
-    - For Frontend, I'm using ReactJS but I'm planning to apply NextJS since it will be a production ready framework for ReactJS to support SEO / SSR
-    - For DB, I'm using mongodb due to the flexibilty of NoSQL
 ````
 
 ## API Endpoints
