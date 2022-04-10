@@ -125,5 +125,5 @@ localhost:8080/incident/resolve POST
 # read details about a certain incident
 localhost:8080/incident/:incident_id GET
 # delete an incident
-localhost:8080/incident DELETE
+localhost:8080/incident/:incident_id DELETE
 ```
